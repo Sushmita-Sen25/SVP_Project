@@ -1,0 +1,41 @@
+{
+ "duration": 113.0,
+ "fps": 25,
+ "boundaries": [
+  {
+   "time": 14.0,
+   "type": "cut",
+   "into": "balls"
+  },
+  {
+   "time": 30.0,
+   "type": "cut",
+   "into": "pan"
+  },
+  {
+   "time": 44.0,
+   "type": "cut",
+   "into": "walkers"
+  },
+  {
+   "time": 61.5,
+   "type": "dissolve",
+   "into": "title"
+  },
+  {
+   "time": 69.0,
+   "type": "fade",
+   "into": "traffic"
+  },
+  {
+   "time": 85.0,
+   "type": "cut",
+   "into": "pattern"
+  },
+  {
+   "time": 99.0,
+   "type": "cut",
+   "into": "night"
+  }
+ ]
+}

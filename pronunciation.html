@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sanskrit Pronunciation Assessment · SVP Lab</title>
+  <meta name="description" content="Sanskrit pronunciation assessment using MFCC, DTW and spectral features, running entirely in the browser.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{var t=localStorage.getItem('svp-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">स</span>SVP Lab</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="pronunciation.html" aria-current="page">Pronunciation</a>
+      <a href="verse.html">Verse recognition</a>
+      <a href="video.html">Video analysis</a>
+    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode"></button>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="eyebrow">Module 1a · Speech processing</div>
+    <h1>Sanskrit Pronunciation Assessment</h1>
+    <p class="lede">Compare a student's pronunciation with a reference using MFCCs, dynamic time warping and spectral features. The tool reports a similarity score, splits the difference into vowel, consonant, duration and spectral parts, and shows where in the word the mismatch happens.</p>
+  </div>
+
+  <div class="split">
+    <aside class="stack sticky-panel">
+      <section class="card">
+        <h3>1 · Word</h3>
+        <div class="chips" id="word-chips"></div>
+      </section>
+
+      <section class="card">
+        <div class="source-title"><span>2 · Reference (teacher)</span>
+          <div class="seg" data-src="ref">
+            <button data-mode="builtin" aria-pressed="true">Sample</button><button data-mode="record">Record</button><button data-mode="upload">Upload</button>
+          </div>
+        </div>
+        <div data-pane="ref-builtin">
+          <label class="field"><span>Speaker</span><select id="ref-voice"></select></label>
+        </div>
+        <div data-pane="ref-record" class="hidden"><button class="btn block" id="ref-rec">● Record reference</button></div>
+        <div data-pane="ref-upload" class="hidden"><label class="field"><span>Audio file (wav, mp3, m4a, webm)</span><input type="file" id="ref-file" accept="audio/*"></label></div>
+        <div class="row-between" style="margin-top:10px">
+          <span class="small muted" id="ref-info">–</span>
+          <button class="btn small" id="ref-play" disabled>▶ Play</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="source-title"><span>3 · Student</span>
+          <div class="seg" data-src="stu">
+            <button data-mode="builtin" aria-pressed="true">Sample</button><button data-mode="record">Record</button><button data-mode="upload">Upload</button>
+          </div>
+        </div>
+        <div data-pane="stu-builtin">
+          <label class="field"><span>Speaker</span><select id="stu-voice"></select></label>
+          <label class="field"><span>Pronunciation</span><select id="stu-form"></select></label>
+        </div>
+        <div data-pane="stu-record" class="hidden"><button class="btn block" id="stu-rec">● Record student</button></div>
+        <div data-pane="stu-upload" class="hidden"><label class="field"><span>Audio file</span><input type="file" id="stu-file" accept="audio/*"></label></div>
+        <div class="row-between" style="margin-top:10px">
+          <span class="small muted" id="stu-info">–</span>
+          <button class="btn small" id="stu-play" disabled>▶ Play</button>
+        </div>
+      </section>
+      <p class="small muted">Sample recordings are neural-TTS voices (Hindi, Marathi, Nepali), not native Vedic reciters. For a real assessment, record a teacher as the reference. Nothing you record leaves your browser.</p>
+    </aside>
+
+    <section class="stack" id="results">
+      <div class="card">
+        <div class="row-between">
+          <div>
+            <div class="small muted">Reference</div>
+            <div><span class="deva" style="font-size:1.6rem" id="word-deva">–</span> <span class="muted" id="word-iast"></span></div>
+          </div>
+          <div style="text-align:right">
+            <div class="small muted">Student said</div>
+            <div id="stu-said" class="mono">–</div>
+          </div>
+        </div>
+        <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+        <div class="score-hero">
+          <div class="gauge">
+            <svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="var(--surface-2)" stroke-width="13"/><circle id="gauge-arc" cx="70" cy="70" r="60" fill="none" stroke="var(--accent)" stroke-width="13" stroke-linecap="round" stroke-dasharray="0 377"/></svg>
+            <div class="val"><div><div class="num" id="score-num">–</div><div class="lbl">similarity</div></div></div>
+          </div>
+          <div class="subscores" id="subscores"></div>
+        </div>
+        <div class="status" id="status" style="margin-top:12px"></div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Feedback</h3>
+          <ul class="feedback" id="feedback"><li>Pick a word to start.</li></ul>
+        </div>
+        <div class="card">
+          <h3>Error identification</h3>
+          <p class="card-sub">Which form does the student's audio sound most like? The student is compared with every form spoken by several reference speakers, so speaker differences cancel out.</p>
+          <div id="ident" class="rank"></div>
+          <p class="small muted" id="ident-note" style="margin-top:10px"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="tabs" role="tablist" id="tabs">
+          <button role="tab" aria-selected="true" data-tab="signals">Signals</button>
+          <button role="tab" data-tab="mfcc">MFCC</button>
+          <button role="tab" data-tab="align">DTW alignment</button>
+          <button role="tab" data-tab="spectral">Spectral &amp; pitch</button>
+          <button role="tab" data-tab="durations">Durations</button>
+        </div>
+
+        <div data-tabpane="signals">
+          <div class="legend"><span><i style="background:var(--accent)"></i>vowel-like</span><span><i style="background:var(--accent-2)"></i>consonant-like</span><span><i style="background:var(--plot-grid)"></i>silence</span><span><i style="background:rgba(220,38,38,.5)"></i>largest mismatch</span></div>
+          <div class="plot-label"><span>Reference waveform</span></div><canvas class="plot" id="c-ref-wave"></canvas>
+          <div class="plot-label"><span>Reference spectrogram</span><span>0–8 kHz</span></div><canvas class="plot" id="c-ref-spec"></canvas>
+          <div class="plot-label"><span>Student waveform</span></div><canvas class="plot" id="c-stu-wave"></canvas>
+          <div class="plot-label"><span>Student spectrogram</span><span>0–8 kHz</span></div><canvas class="plot" id="c-stu-spec"></canvas>
+        </div>
+
+        <div data-tabpane="mfcc" class="hidden">
+          <div class="plot-label"><span>Reference MFCC (c1–c12, mean-normalised)</span></div><canvas class="plot" id="c-ref-mfcc"></canvas>
+          <div class="plot-label"><span>Student MFCC</span></div><canvas class="plot" id="c-stu-mfcc"></canvas>
+          <div class="plot-label"><span>Mean |difference| per coefficient along the DTW path</span><span>c0 = energy · low c = spectral tilt · high c = fine detail</span></div><canvas class="plot" id="c-coef"></canvas>
+        </div>
+
+        <div data-tabpane="align" class="hidden">
+          <div class="grid grid-2">
+            <div>
+              <div class="plot-label"><span>DTW local-cost matrix and warping path</span></div>
+              <canvas class="plot" id="c-dtw"></canvas>
+              <p class="small muted" style="margin-top:6px">Bright = similar frames. The path bends off the diagonal where the student is faster or slower than the reference.</p>
+            </div>
+            <div>
+              <div class="plot-label"><span>Alignment cost along the reference</span><span>seconds</span></div>
+              <canvas class="plot" id="c-cost"></canvas>
+              <div class="plot-label"><span>Local tempo (student frames per reference frame)</span></div>
+              <canvas class="plot" id="c-tempo"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div data-tabpane="spectral" class="hidden">
+          <div class="legend"><span><i style="background:var(--accent)"></i>reference</span><span><i style="background:var(--accent-2)"></i>student</span></div>
+          <div class="plot-label"><span>Long-term average spectrum (level removed)</span><span>dB vs mel band</span></div><canvas class="plot" id="c-ltas"></canvas>
+          <div class="plot-label"><span>Pitch contour (student mapped onto reference time)</span><span>Hz</span></div><canvas class="plot" id="c-pitch"></canvas>
+          <div class="plot-label"><span>Spectral centroid (student mapped onto reference time)</span><span>Hz</span></div><canvas class="plot" id="c-centroid"></canvas>
+        </div>
+
+        <div data-tabpane="durations" class="hidden">
+          <div class="table-wrap"><table class="data" id="dur-table"></table></div>
+          <p class="small muted" style="margin-top:10px">Vowel-like frames: voiced, high energy, low zero-crossing rate and low spectral flatness. Consonant-like: other non-silent frames. Vowel segments approximate syllable nuclei.</p>
+        </div>
+      </div>
+
+      <div class="card" id="eval-card">
+        <h3>How well does it work?</h3>
+        <p class="card-sub">Evaluated on the bundled corpus (8 words × 4 forms × 6 speakers) with each speaker held out in turn.</p>
+        <div class="grid grid-3" id="eval-stats"></div>
+        <p class="small muted" style="margin-top:12px">A one-to-one comparison measures overall acoustic similarity. Across speakers, a correct word scores about the same as a mispronounced one, because voice differences are spread over the whole word while most errors affect a single sound. Comparing against several speakers (error identification) separates the forms much better. Treat the single score as a similarity measure, not a grade.</p>
+      </div>
+
+      <section>
+        <h2>Method</h2>
+        <details class="method" open><summary>Feature extraction</summary><div>
+          <ol>
+            <li>Resample to 16 kHz mono, peak-normalise and trim leading/trailing silence (frame energy more than 35 dB below the peak).</li>
+            <li>Pre-emphasis (0.97), 25 ms Hamming frames every 10 ms, 512-point FFT.</li>
+            <li>26 triangular mel filters → log → DCT-II → 13 MFCCs with sinusoidal liftering (L = 22); Δ and ΔΔ by regression over ±2 frames; per-utterance CMVN.</li>
+            <li>The 39-dim vector is projected to 24 dimensions with LDA. The LDA was trained on 86k frames labelled with 359 HMM states from the verse models, which favours directions that separate sounds over directions that separate speakers.</li>
+          </ol></div></details>
+        <details class="method"><summary>Comparison and scoring</summary><div>
+          <ul>
+            <li><b>DTW</b> (symmetric-2 steps, Sakoe–Chiba band 35%) aligns the two feature sequences. The normalised path cost becomes the MFCC similarity through a calibrated logistic curve.</li>
+            <li><b>Vowel / consonant scores</b>: mean path cost over reference frames labelled vowel-like or consonant-like (energy, zero-crossing rate, YIN pitch, spectral flatness).</li>
+            <li><b>Duration</b>: ratio of speech durations, plus the vowel share of each utterance, which flags lengthened or shortened vowels.</li>
+            <li><b>Spectral</b>: RMS difference of the long-term average log-mel spectrum. Spectral centroid in fricative frames separates dental s (bright), palatal ś and retroflex ṣ (darker).</li>
+            <li><b>Overall</b> = 0.5·MFCC + 0.15·vowel + 0.15·consonant + 0.1·duration + 0.1·spectral.</li>
+          </ul></div></details>
+        <details class="method"><summary>Error identification</summary><div>
+          <p>For a sample word, the student's audio is compared by DTW with the correct form and three typical mispronunciations, each spoken by up to five other speakers. Distances are averaged per form and turned into probabilities with a softmax. Every form is heard from the same set of voices, so the speaker effect is shared and the remaining difference is the pronunciation.</p></div></details>
+      </section>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">SVP Lab · Speech &amp; Video Processing project · <a href="https://github.com/Sushmita-Sen25/SVP_Project">Source on GitHub</a></footer>
+<script type="module" src="assets/js/pronunciation-page.js"></script>
+</body>
+</html>

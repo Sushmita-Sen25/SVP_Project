@@ -1,0 +1,85 @@
+{
+  "teacher": "hi-IN-SwaraNeural",
+  "voices": [
+    { "id": "hi-IN-SwaraNeural", "label": "Swara (hi, female)" },
+    { "id": "hi-IN-MadhurNeural", "label": "Madhur (hi, male)" },
+    { "id": "mr-IN-AarohiNeural", "label": "Aarohi (mr, female)" },
+    { "id": "mr-IN-ManoharNeural", "label": "Manohar (mr, male)" },
+    { "id": "ne-NP-HemkalaNeural", "label": "Hemkala (ne, female)" },
+    { "id": "ne-NP-SagarNeural", "label": "Sagar (ne, male)" }
+  ],
+  "words": [
+    {
+      "id": "krishna", "deva": "कृष्ण", "iast": "kṛṣṇa", "meaning": "Krishna (proper name; 'dark')",
+      "forms": [
+        { "id": "ref", "deva": "कृष्ण", "label": "kṛṣṇa", "error": "Correct" },
+        { "id": "v1", "deva": "क्रिश्ना", "label": "krishna", "error": "ṛ→ri, retroflex ṣ→palatal sh, final a lengthened" },
+        { "id": "v2", "deva": "किश्ना", "label": "kishna", "error": "ṛ dropped, ṣ→sh" },
+        { "id": "v3", "deva": "क्रिस्ना", "label": "krisna", "error": "Retroflex ṣ→dental s" }
+      ]
+    },
+    {
+      "id": "dharma", "deva": "धर्म", "iast": "dharma", "meaning": "duty, righteousness",
+      "forms": [
+        { "id": "ref", "deva": "धर्म", "label": "dharma", "error": "Correct" },
+        { "id": "v1", "deva": "धरम", "label": "dharam", "error": "Extra vowel splits the rm cluster" },
+        { "id": "v2", "deva": "दर्म", "label": "darma", "error": "Aspiration lost: dh→d" },
+        { "id": "v3", "deva": "धर्मा", "label": "dharmā", "error": "Final vowel lengthened a→ā" }
+      ]
+    },
+    {
+      "id": "jnana", "deva": "ज्ञान", "iast": "jñāna", "meaning": "knowledge",
+      "forms": [
+        { "id": "ref", "deva": "ज्ञान", "label": "jñāna", "error": "Correct" },
+        { "id": "v1", "deva": "ग्यान", "label": "gyāna", "error": "Cluster jñ→gy" },
+        { "id": "v2", "deva": "जनान", "label": "janāna", "error": "Cluster split with an extra vowel" },
+        { "id": "v3", "deva": "ज्ञन", "label": "jñana", "error": "Long ā shortened to a" }
+      ]
+    },
+    {
+      "id": "kshetra", "deva": "क्षेत्र", "iast": "kṣetra", "meaning": "field",
+      "forms": [
+        { "id": "ref", "deva": "क्षेत्र", "label": "kṣetra", "error": "Correct" },
+        { "id": "v1", "deva": "छेत्र", "label": "chetra", "error": "Cluster kṣ→ch" },
+        { "id": "v2", "deva": "खेत्र", "label": "khetra", "error": "Cluster kṣ→kh" },
+        { "id": "v3", "deva": "क्षत्र", "label": "kṣatra", "error": "Vowel quality e→a" }
+      ]
+    },
+    {
+      "id": "shanti", "deva": "शान्ति", "iast": "śānti", "meaning": "peace",
+      "forms": [
+        { "id": "ref", "deva": "शान्ति", "label": "śānti", "error": "Correct" },
+        { "id": "v1", "deva": "सान्ति", "label": "sānti", "error": "Palatal ś→dental s" },
+        { "id": "v2", "deva": "शान्ती", "label": "śāntī", "error": "Final i lengthened to ī" },
+        { "id": "v3", "deva": "शन्ति", "label": "śanti", "error": "Long ā shortened to a" }
+      ]
+    },
+    {
+      "id": "rishi", "deva": "ऋषि", "iast": "ṛṣi", "meaning": "sage, seer",
+      "forms": [
+        { "id": "ref", "deva": "ऋषि", "label": "ṛṣi", "error": "Correct" },
+        { "id": "v1", "deva": "रिशी", "label": "riśī", "error": "ṛ→ri, ṣ→ś, final vowel lengthened" },
+        { "id": "v2", "deva": "रिसि", "label": "risi", "error": "Retroflex ṣ→dental s" },
+        { "id": "v3", "deva": "रुषि", "label": "ruṣi", "error": "ṛ→ru" }
+      ]
+    },
+    {
+      "id": "samskrta", "deva": "संस्कृत", "iast": "saṃskṛta", "meaning": "refined; the Sanskrit language",
+      "forms": [
+        { "id": "ref", "deva": "संस्कृत", "label": "saṃskṛta", "error": "Correct" },
+        { "id": "v1", "deva": "संसकिरत", "label": "sanskirat", "error": "Cluster broken up by extra vowels" },
+        { "id": "v2", "deva": "संस्क्रिट", "label": "sanskriṭ", "error": "ṛ→ri, dental t→retroflex ṭ" },
+        { "id": "v3", "deva": "संस्कृता", "label": "saṃskṛtā", "error": "Final vowel lengthened a→ā" }
+      ]
+    },
+    {
+      "id": "bhagavadgita", "deva": "भगवद्गीता", "iast": "bhagavadgītā", "meaning": "the Song of the Lord",
+      "forms": [
+        { "id": "ref", "deva": "भगवद्गीता", "label": "bhagavadgītā", "error": "Correct" },
+        { "id": "v1", "deva": "भगवतगीता", "label": "bhagavatgītā", "error": "Voicing lost: d→t" },
+        { "id": "v2", "deva": "बगवद्गीता", "label": "bagavadgītā", "error": "Aspiration lost: bh→b" },
+        { "id": "v3", "deva": "भगवद्गिता", "label": "bhagavadgitā", "error": "Long ī shortened to i" }
+      ]
+    }
+  ]
+}

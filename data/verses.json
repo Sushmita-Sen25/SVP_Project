@@ -1,0 +1,78 @@
+{
+  "train_voices": ["hi-IN-SwaraNeural", "hi-IN-MadhurNeural", "mr-IN-AarohiNeural", "mr-IN-ManoharNeural"],
+  "train_configs": [
+    { "id": "slow", "rate": "-10%", "pitch": "+0Hz" },
+    { "id": "norm", "rate": "+0%", "pitch": "-8Hz" },
+    { "id": "fast", "rate": "+10%", "pitch": "+8Hz" }
+  ],
+  "test_sets": [
+    { "voice": "ne-NP-HemkalaNeural", "config": { "id": "test", "rate": "+0%", "pitch": "+0Hz" }, "note": "unseen speaker" },
+    { "voice": "ne-NP-SagarNeural", "config": { "id": "test", "rate": "+0%", "pitch": "+0Hz" }, "note": "unseen speaker" },
+    { "voice": "hi-IN-SwaraNeural", "config": { "id": "test", "rate": "-18%", "pitch": "+5Hz" }, "note": "seen speaker, unseen tempo" },
+    { "voice": "hi-IN-MadhurNeural", "config": { "id": "test", "rate": "+18%", "pitch": "-5Hz" }, "note": "seen speaker, unseen tempo" },
+    { "voice": "mr-IN-AarohiNeural", "config": { "id": "test", "rate": "-18%", "pitch": "-5Hz" }, "note": "seen speaker, unseen tempo" },
+    { "voice": "mr-IN-ManoharNeural", "config": { "id": "test", "rate": "+18%", "pitch": "+5Hz" }, "note": "seen speaker, unseen tempo" }
+  ],
+  "verses": [
+    {
+      "id": "1.1",
+      "deva": ["धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।", "मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥"],
+      "iast": ["dharma-kṣetre kuru-kṣetre samavetā yuyutsavaḥ", "māmakāḥ pāṇḍavāś caiva kim akurvata sañjaya"],
+      "meaning": "Dhritarashtra asks Sanjaya what his sons and the Pandavas did once they had gathered, eager for battle, on the sacred field of Kurukshetra."
+    },
+    {
+      "id": "2.14",
+      "deva": ["मात्रास्पर्शास्तु कौन्तेय शीतोष्णसुखदुःखदाः।", "आगमापायिनोऽनित्यास्तांस्तितिक्षस्व भारत॥"],
+      "iast": ["mātrā-sparśās tu kaunteya śītoṣṇa-sukha-duḥkha-dāḥ", "āgamāpāyino 'nityās tāṁs titikṣasva bhārata"],
+      "meaning": "The senses meeting their objects bring cold and heat, pleasure and pain. These come and go and do not last, so learn to bear them."
+    },
+    {
+      "id": "2.20",
+      "deva": ["न जायते म्रियते वा कदाचिन्नायं भूत्वा भविता वा न भूयः।", "अजो नित्यः शाश्वतोऽयं पुराणो न हन्यते हन्यमाने शरीरे॥"],
+      "iast": ["na jāyate mriyate vā kadācin nāyaṁ bhūtvā bhavitā vā na bhūyaḥ", "ajo nityaḥ śāśvato 'yaṁ purāṇo na hanyate hanyamāne śarīre"],
+      "meaning": "The self is never born and never dies. Unborn, eternal and ancient, it is not killed when the body is killed."
+    },
+    {
+      "id": "2.47",
+      "deva": ["कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।", "मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥"],
+      "iast": ["karmaṇy evādhikāras te mā phaleṣu kadācana", "mā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi"],
+      "meaning": "Your right is to the action alone, never to its results. Do not let results be your motive, and do not cling to doing nothing."
+    },
+    {
+      "id": "4.7",
+      "deva": ["यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।", "अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥"],
+      "iast": ["yadā yadā hi dharmasya glānir bhavati bhārata", "abhyutthānam adharmasya tadātmānaṁ sṛjāmy aham"],
+      "meaning": "Whenever righteousness declines and unrighteousness rises, at that time I manifest myself."
+    },
+    {
+      "id": "4.8",
+      "deva": ["परित्राणाय साधूनां विनाशाय च दुष्कृताम्।", "धर्मसंस्थापनार्थाय सम्भवामि युगे युगे॥"],
+      "iast": ["paritrāṇāya sādhūnāṁ vināśāya ca duṣkṛtām", "dharma-saṁsthāpanārthāya sambhavāmi yuge yuge"],
+      "meaning": "To protect the good, to end the wicked and to re-establish righteousness, I appear in age after age."
+    },
+    {
+      "id": "6.5",
+      "deva": ["उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।", "आत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥"],
+      "iast": ["uddhared ātmanātmānaṁ nātmānam avasādayet", "ātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ"],
+      "meaning": "Raise yourself by your own effort and do not let yourself sink. The self alone is your friend, and the self alone your enemy."
+    },
+    {
+      "id": "9.26",
+      "deva": ["पत्रं पुष्पं फलं तोयं यो मे भक्त्या प्रयच्छति।", "तदहं भक्त्युपहृतमश्नामि प्रयतात्मनः॥"],
+      "iast": ["patraṁ puṣpaṁ phalaṁ toyaṁ yo me bhaktyā prayacchati", "tad ahaṁ bhakty-upahṛtam aśnāmi prayatātmanaḥ"],
+      "meaning": "Whoever offers me a leaf, a flower, a fruit or water with devotion, I accept that offering made with love by a pure heart."
+    },
+    {
+      "id": "12.13",
+      "deva": ["अद्वेष्टा सर्वभूतानां मैत्रः करुण एव च।", "निर्ममो निरहङ्कारः समदुःखसुखः क्षमी॥"],
+      "iast": ["adveṣṭā sarva-bhūtānāṁ maitraḥ karuṇa eva ca", "nirmamo nirahaṅkāraḥ sama-duḥkha-sukhaḥ kṣamī"],
+      "meaning": "One who hates no being, who is friendly and kind, free from possessiveness and ego, steady in pain and pleasure, and forgiving."
+    },
+    {
+      "id": "18.66",
+      "deva": ["सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।", "अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥"],
+      "iast": ["sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja", "ahaṁ tvā sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ"],
+      "meaning": "Set aside every other duty and take refuge in me alone. I will free you from all wrongdoing; do not grieve."
+    }
+  ]
+}

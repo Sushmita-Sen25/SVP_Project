@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVP Lab · Speech &amp; Video Processing</title>
+  <meta name="description" content="Sanskrit pronunciation assessment (MFCC + DTW), Bhagavad Gita verse recognition (MFCC + HMM) and long-video analysis, all running in the browser.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{var t=localStorage.getItem('svp-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">स</span>SVP Lab</a>
+    <div class="nav-links">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="pronunciation.html">Pronunciation</a>
+      <a href="verse.html">Verse recognition</a>
+      <a href="video.html">Video analysis</a>
+    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode"></button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Speech &amp; Video Processing · Course project</div>
+      <h1>Listening to Sanskrit, and watching long videos for you</h1>
+      <p class="lede">Three working systems built from first principles: pronunciation assessment with MFCC and spectral features, verse recognition with hidden Markov models, and a pipeline that turns a long video into key frames, scenes, motion maps, tracks and a short summary. Everything runs in your browser, so recordings and videos never leave your device.</p>
+      <div class="row" style="margin-top:20px">
+        <a class="btn primary" href="pronunciation.html">Try pronunciation assessment</a>
+        <a class="btn" href="video.html">Analyse a video</a>
+      </div>
+    </div>
+    <figure class="hero-art card" style="padding:16px;margin:0;display:flex;flex-direction:column;gap:8px">
+      <div class="row-between small"><span class="muted">Live on this page</span><span class="deva" style="font-size:1.2rem">कृष्ण · kṛṣṇa</span></div>
+      <canvas class="plot" id="hero-wave"></canvas>
+      <canvas class="plot" id="hero-spec" style="flex:1"></canvas>
+      <canvas class="plot" id="hero-mfcc"></canvas>
+      <figcaption class="small muted">Waveform, spectrogram and 13 MFCCs computed in JavaScript from the reference recording.</figcaption>
+    </figure>
+  </section>
+
+  <section style="margin-top:34px">
+    <div class="grid grid-3">
+      <a class="card module-card" href="pronunciation.html">
+        <span class="num">1a · Speech</span>
+        <h3>Sanskrit Pronunciation Assessment Using MFCC and Spectral Features</h3>
+        <p class="muted small" style="margin:0">Compares a student's कृष्ण with the reference kṛṣṇa and reports a similarity score, such as 78%.</p>
+        <ul>
+          <li>Vowel and consonant differences</li>
+          <li>Duration and tempo (DTW path)</li>
+          <li>Spectral envelope, centroid, pitch</li>
+          <li>Per-coefficient MFCC differences</li>
+          <li>Error-type identification</li>
+        </ul>
+        <div class="pipeline"><span>MFCC</span><b>→</b><span>LDA</span><b>→</b><span>DTW</span><b>→</b><span>Scores</span></div>
+        <span class="go">Open module →</span>
+      </a>
+      <a class="card module-card" href="verse.html">
+        <span class="num">1b · Speech</span>
+        <h3>HMM-Based Recognition of Bhagavad Gita Shlokas Using MFCC Features</h3>
+        <p class="muted small" style="margin:0">Takes Sanskrit audio as input and names the verse, for example Verse 9.26.</p>
+        <ul>
+          <li>10 verses, one left-to-right HMM each</li>
+          <li>Baum–Welch training in the browser</li>
+          <li>Viterbi state alignment</li>
+          <li>Unseen-speaker, noise and partial-verse tests</li>
+        </ul>
+        <div class="pipeline"><span>MFCC+Δ+ΔΔ</span><b>→</b><span>HMM ×10</span><b>→</b><span>Forward</span><b>→</b><span>Verse</span></div>
+        <span class="go">Open module →</span>
+      </a>
+      <a class="card module-card" href="video.html">
+        <span class="num">2 · Video</span>
+        <h3>Long-Video Analysis and Summarisation</h3>
+        <p class="muted small" style="margin:0">Takes a 30-minute video and produces:</p>
+        <ul>
+          <li>(a) important frames</li>
+          <li>(b) scene boundaries</li>
+          <li>(c) a motion map</li>
+          <li>(d) tracked objects and human movement</li>
+          <li>(e) a short summary video</li>
+        </ul>
+        <div class="pipeline"><span>Sampling</span><b>→</b><span>Histograms</span><b>→</b><span>Shots</span><b>→</b><span>Tracks</span><b>→</b><span>Summary</span></div>
+        <span class="go">Open module →</span>
+      </a>
+    </div>
+  </section>
+
+  <section style="margin-top:40px">
+    <h2>Results at a glance</h2>
+    <p class="muted">Measured with the scripts in <code>scripts/</code> on the bundled corpus. Numbers are loaded from the evaluation files that the site itself uses.</p>
+    <div class="grid grid-4" id="glance"></div>
+  </section>
+
+  <section style="margin-top:40px" class="grid grid-2">
+    <div class="card">
+      <h3>How it is built</h3>
+      <ul class="small" style="padding-left:18px;margin:0;color:var(--muted)">
+        <li>Plain HTML, CSS and JavaScript modules with no build step. FFT, mel filterbank, MFCC, YIN pitch, DTW, Gaussian HMM (Viterbi and Baum–Welch), LDA and all the video processing are written from scratch.</li>
+        <li>The only third-party model is COCO-SSD (TensorFlow.js), loaded on demand for person detection.</li>
+        <li>The same DSP and HMM modules run in Node for offline training (<code>scripts/train_gita_hmm.mjs</code>) and in the browser for inference and retraining.</li>
+        <li>The speech corpus (372 clips) was synthesised with six neural TTS voices in Hindi, Marathi and Nepali. The demo video is procedurally rendered with OpenCV and comes with ground-truth scene boundaries.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Reproduce</h3>
+      <pre class="mono small" style="margin:0;white-space:pre-wrap;color:var(--muted)">pip install edge-tts opencv-python numpy imageio-ffmpeg
+python scripts/generate_audio.py      # speech corpus
+python scripts/make_demo_video.py     # demo video + ground truth
+export FFMPEG=$(python -c "import imageio_ffmpeg as f; print(f.get_ffmpeg_exe())")
+node scripts/train_gita_hmm.mjs       # verse HMMs + evaluation
+node scripts/train_lda.mjs            # speaker-robust LDA
+node scripts/calibrate_pronunciation.mjs</pre>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">SVP Lab · Speech &amp; Video Processing project · <a href="https://github.com/Sushmita-Sen25/SVP_Project">Source on GitHub</a></footer>
+<script type="module" src="assets/js/home.js"></script>
+</body>
+</html>

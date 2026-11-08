@@ -1,0 +1,829 @@
+{
+ "heldOut": {
+  "accuracy": 1,
+  "confusion": [
+   [
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6
+   ]
+  ],
+  "labels": [
+   "1.1",
+   "2.14",
+   "2.20",
+   "2.47",
+   "4.7",
+   "4.8",
+   "6.5",
+   "9.26",
+   "12.13",
+   "18.66"
+  ],
+  "results": [
+   {
+    "file": "audio/gita/test/v1_1/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 5.883434620052633
+   },
+   {
+    "file": "audio/gita/test/v1_1/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 4.416368902001999
+   },
+   {
+    "file": "audio/gita/test/v1_1/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 5.272910877791453
+   },
+   {
+    "file": "audio/gita/test/v1_1/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 6.291694276107862
+   },
+   {
+    "file": "audio/gita/test/v1_1/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 0.05579748453477151
+   },
+   {
+    "file": "audio/gita/test/v1_1/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "1.1",
+    "pred": "1.1",
+    "correct": true,
+    "margin": 1.048136695361464
+   },
+   {
+    "file": "audio/gita/test/v2_14/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 5.5572424094870385
+   },
+   {
+    "file": "audio/gita/test/v2_14/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 4.635604249757414
+   },
+   {
+    "file": "audio/gita/test/v2_14/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 5.626141697646858
+   },
+   {
+    "file": "audio/gita/test/v2_14/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 6.3525193676693945
+   },
+   {
+    "file": "audio/gita/test/v2_14/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 1.9750068110570353
+   },
+   {
+    "file": "audio/gita/test/v2_14/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "2.14",
+    "pred": "2.14",
+    "correct": true,
+    "margin": 2.7696812156177657
+   },
+   {
+    "file": "audio/gita/test/v2_20/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 5.585319683863773
+   },
+   {
+    "file": "audio/gita/test/v2_20/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 4.339207956776569
+   },
+   {
+    "file": "audio/gita/test/v2_20/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 5.891042913264307
+   },
+   {
+    "file": "audio/gita/test/v2_20/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 6.409145812052152
+   },
+   {
+    "file": "audio/gita/test/v2_20/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 2.6510580772337704
+   },
+   {
+    "file": "audio/gita/test/v2_20/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "2.20",
+    "pred": "2.20",
+    "correct": true,
+    "margin": 2.572319303634494
+   },
+   {
+    "file": "audio/gita/test/v2_47/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 5.005556067797606
+   },
+   {
+    "file": "audio/gita/test/v2_47/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 4.172330236213263
+   },
+   {
+    "file": "audio/gita/test/v2_47/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 4.756209732552293
+   },
+   {
+    "file": "audio/gita/test/v2_47/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 4.99477076142071
+   },
+   {
+    "file": "audio/gita/test/v2_47/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 0.3783875849055036
+   },
+   {
+    "file": "audio/gita/test/v2_47/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "2.47",
+    "pred": "2.47",
+    "correct": true,
+    "margin": 1.8589985330793937
+   },
+   {
+    "file": "audio/gita/test/v4_7/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 4.196696785870216
+   },
+   {
+    "file": "audio/gita/test/v4_7/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 3.329495143036823
+   },
+   {
+    "file": "audio/gita/test/v4_7/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 4.190387235460328
+   },
+   {
+    "file": "audio/gita/test/v4_7/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 4.90897125731842
+   },
+   {
+    "file": "audio/gita/test/v4_7/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 2.9442825222395115
+   },
+   {
+    "file": "audio/gita/test/v4_7/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "4.7",
+    "pred": "4.7",
+    "correct": true,
+    "margin": 3.2757448317818003
+   },
+   {
+    "file": "audio/gita/test/v4_8/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 5.639727677997733
+   },
+   {
+    "file": "audio/gita/test/v4_8/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 4.224372168999977
+   },
+   {
+    "file": "audio/gita/test/v4_8/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 5.224149297367312
+   },
+   {
+    "file": "audio/gita/test/v4_8/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 6.014642486302442
+   },
+   {
+    "file": "audio/gita/test/v4_8/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 1.112567472120766
+   },
+   {
+    "file": "audio/gita/test/v4_8/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "4.8",
+    "pred": "4.8",
+    "correct": true,
+    "margin": 2.5919750411025717
+   },
+   {
+    "file": "audio/gita/test/v6_5/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 4.470650373587446
+   },
+   {
+    "file": "audio/gita/test/v6_5/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 3.841190882547167
+   },
+   {
+    "file": "audio/gita/test/v6_5/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 4.481154261821928
+   },
+   {
+    "file": "audio/gita/test/v6_5/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 5.384609533471554
+   },
+   {
+    "file": "audio/gita/test/v6_5/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 0.6190791913186615
+   },
+   {
+    "file": "audio/gita/test/v6_5/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "6.5",
+    "pred": "6.5",
+    "correct": true,
+    "margin": 2.1351800537707817
+   },
+   {
+    "file": "audio/gita/test/v9_26/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 4.6772553275533255
+   },
+   {
+    "file": "audio/gita/test/v9_26/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 3.9143846329501812
+   },
+   {
+    "file": "audio/gita/test/v9_26/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 4.803896720776891
+   },
+   {
+    "file": "audio/gita/test/v9_26/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 5.275365918951977
+   },
+   {
+    "file": "audio/gita/test/v9_26/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 1.0591337023398566
+   },
+   {
+    "file": "audio/gita/test/v9_26/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "9.26",
+    "pred": "9.26",
+    "correct": true,
+    "margin": 1.6832398130308093
+   },
+   {
+    "file": "audio/gita/test/v12_13/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 4.816336536654056
+   },
+   {
+    "file": "audio/gita/test/v12_13/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 4.289327070406287
+   },
+   {
+    "file": "audio/gita/test/v12_13/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 5.033638880491914
+   },
+   {
+    "file": "audio/gita/test/v12_13/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 5.502400159391492
+   },
+   {
+    "file": "audio/gita/test/v12_13/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 0.46568151652463996
+   },
+   {
+    "file": "audio/gita/test/v12_13/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "12.13",
+    "pred": "12.13",
+    "correct": true,
+    "margin": 1.734638643110884
+   },
+   {
+    "file": "audio/gita/test/v18_66/hi-IN-MadhurNeural.mp3",
+    "voice": "hi-IN-MadhurNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 5.765450431430899
+   },
+   {
+    "file": "audio/gita/test/v18_66/hi-IN-SwaraNeural.mp3",
+    "voice": "hi-IN-SwaraNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 4.371899152859633
+   },
+   {
+    "file": "audio/gita/test/v18_66/mr-IN-AarohiNeural.mp3",
+    "voice": "mr-IN-AarohiNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 5.097836772504053
+   },
+   {
+    "file": "audio/gita/test/v18_66/mr-IN-ManoharNeural.mp3",
+    "voice": "mr-IN-ManoharNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 5.889241336791713
+   },
+   {
+    "file": "audio/gita/test/v18_66/ne-NP-HemkalaNeural.mp3",
+    "voice": "ne-NP-HemkalaNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 0.5261905199097754
+   },
+   {
+    "file": "audio/gita/test/v18_66/ne-NP-SagarNeural.mp3",
+    "voice": "ne-NP-SagarNeural",
+    "truth": "18.66",
+    "pred": "18.66",
+    "correct": true,
+    "margin": 1.1700153638853905
+   }
+  ],
+  "noise": [
+   {
+    "snr": 30,
+    "accuracy": 0.9833333333333333
+   },
+   {
+    "snr": 20,
+    "accuracy": 0.9
+   },
+   {
+    "snr": 10,
+    "accuracy": 0.5
+   },
+   {
+    "snr": 5,
+    "accuracy": 0.31666666666666665
+   },
+   {
+    "snr": 0,
+    "accuracy": 0.2
+   }
+  ],
+  "partial": [
+   {
+    "fraction": 0.3,
+    "strictEnd": 0.95,
+    "anyEnd": 1
+   },
+   {
+    "fraction": 0.5,
+    "strictEnd": 0.95,
+    "anyEnd": 0.9666666666666667
+   },
+   {
+    "fraction": 0.7,
+    "strictEnd": 0.9,
+    "anyEnd": 0.9
+   }
+  ]
+ },
+ "loso": {
+  "accuracy": 1,
+  "folds": [
+   {
+    "voice": "hi-IN-MadhurNeural",
+    "accuracy": 1,
+    "n": 40
+   },
+   {
+    "voice": "hi-IN-SwaraNeural",
+    "accuracy": 1,
+    "n": 40
+   },
+   {
+    "voice": "mr-IN-AarohiNeural",
+    "accuracy": 1,
+    "n": 40
+   },
+   {
+    "voice": "mr-IN-ManoharNeural",
+    "accuracy": 1,
+    "n": 40
+   },
+   {
+    "voice": "ne-NP-HemkalaNeural",
+    "accuracy": 1,
+    "n": 10
+   },
+   {
+    "voice": "ne-NP-SagarNeural",
+    "accuracy": 1,
+    "n": 10
+   }
+  ],
+  "confusion": [
+   [
+    18,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    18,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    18,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    18,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    18,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    18,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    18,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    18,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    18,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    18
+   ]
+  ],
+  "labels": [
+   "1.1",
+   "2.14",
+   "2.20",
+   "2.47",
+   "4.7",
+   "4.8",
+   "6.5",
+   "9.26",
+   "12.13",
+   "18.66"
+  ]
+ }
+}

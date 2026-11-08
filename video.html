@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Analysis · SVP Lab</title>
+  <meta name="description" content="Key frames, scene boundaries, motion maps, object tracking and summaries for long videos, computed in the browser.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{var t=localStorage.getItem('svp-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">स</span>SVP Lab</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="pronunciation.html">Pronunciation</a>
+      <a href="verse.html">Verse recognition</a>
+      <a href="video.html" aria-current="page">Video analysis</a>
+    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode"></button>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="eyebrow">Module 2 · Video processing</div>
+    <h1>Long-Video Analysis &amp; Summarisation</h1>
+    <p class="lede">Load a video of any length, up to a 30-minute lecture or longer, and get its key frames, scene boundaries, a motion map, tracked people and objects, and a short summary video. Frames are sampled and processed in your browser. The video is never uploaded.</p>
+  </div>
+
+  <div class="split">
+    <aside class="stack sticky-panel">
+      <section class="card">
+        <h3>1 · Video</h3>
+        <div class="dropzone" id="drop" tabindex="0" role="button" aria-label="Choose a video file">
+          <div style="font-weight:650">Drop a video here or click to choose</div>
+          <div class="small muted">MP4, WebM, MOV: anything your browser can play</div>
+          <input type="file" id="file" accept="video/*" class="hidden">
+        </div>
+        <button class="btn block" id="demo" style="margin-top:10px">Use the demo video (1:53, 8 scenes)</button>
+        <div class="status small" id="src-info" style="margin-top:8px"></div>
+      </section>
+
+      <section class="card">
+        <h3>2 · Settings</h3>
+        <label class="field"><span>Frames analysed per second</span>
+          <select id="rate">
+            <option value="auto">Auto (from video length)</option>
+            <option value="0.5">0.5 fps (very long videos)</option>
+            <option value="1">1 fps</option>
+            <option value="2">2 fps</option>
+            <option value="4">4 fps</option>
+          </select></label>
+        <label class="field"><span>Object tracking</span>
+          <select id="tracker">
+            <option value="coco-person">People (COCO-SSD detector)</option>
+            <option value="coco-all">All objects (COCO-SSD detector)</option>
+            <option value="blob">Moving blobs (background subtraction)</option>
+            <option value="none">Off</option>
+          </select></label>
+        <label class="field"><span>Scene-cut sensitivity <b id="sens-v">3</b></span><input type="range" id="sens" min="1" max="5" step="1" value="3"></label>
+        <label class="field"><span>Summary length</span>
+          <select id="sumlen"><option value="15">15 s</option><option value="30" selected>30 s</option><option value="60">60 s</option><option value="120">2 min</option></select></label>
+        <button class="btn primary block" id="run" disabled>Analyse video</button>
+        <div class="progress hidden" id="prog" style="margin-top:12px"><div></div></div>
+        <div class="status small" id="run-status"></div>
+      </section>
+    </aside>
+
+    <section class="stack">
+      <div class="card" style="padding:12px">
+        <div class="video-wrap">
+          <video id="video" controls playsinline preload="auto" muted></video>
+          <canvas class="overlay" id="overlay"></canvas>
+        </div>
+        <div class="row-between" style="margin-top:10px">
+          <label class="check" style="margin:0"><input type="checkbox" id="show-boxes" checked> Show tracked boxes on playback</label>
+          <span class="small muted" id="now-scene"></span>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results">
+        <div class="grid grid-4" id="stats"></div>
+        <div id="truth-score" class="small" style="margin-top:12px"></div>
+        <div class="tabs" role="tablist" id="tabs" style="margin-top:18px">
+          <button role="tab" aria-selected="true" data-tab="frames">Important frames</button>
+          <button role="tab" data-tab="scenes">Scene boundaries</button>
+          <button role="tab" data-tab="motion">Motion map</button>
+          <button role="tab" data-tab="tracks">Tracked objects</button>
+          <button role="tab" data-tab="summary">Summary video</button>
+        </div>
+
+        <div data-tabpane="frames">
+          <div class="row-between" style="margin-bottom:12px">
+            <span class="small muted">One key frame per scene (the frame closest to the scene's average colour distribution, preferring sharp frames), plus extra frames when a long scene changes. Click a frame to jump to it.</span>
+            <div class="seg" id="kf-sort"><button data-sort="time" aria-pressed="true">By time</button><button data-sort="importance">By importance</button></div>
+          </div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+
+        <div data-tabpane="scenes" class="hidden">
+          <div class="plot-label"><span>Scene timeline</span><span id="truth-legend"></span></div>
+          <canvas class="plot" id="c-timeline"></canvas>
+          <div class="plot-label"><span>Frame-to-frame dissimilarity (histogram + pixel) with adaptive threshold</span><span>click to seek</span></div>
+          <canvas class="plot" id="c-diff"></canvas>
+          <div class="table-wrap" style="margin-top:14px"><table class="data" id="scene-table"></table></div>
+        </div>
+
+        <div data-tabpane="motion" class="hidden">
+          <div class="grid grid-2">
+            <div>
+              <div class="plot-label"><span>Motion energy map (where things move)</span></div>
+              <canvas class="plot" id="c-motionmap"></canvas>
+            </div>
+            <div>
+              <div class="plot-label"><span>Motion intensity over time</span><span>click to seek</span></div>
+              <canvas class="plot" id="c-motion"></canvas>
+              <div class="plot-label"><span>Most active moments</span></div>
+              <div id="motion-top" class="small"></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-tabpane="tracks" class="hidden">
+          <div class="row" style="margin-bottom:10px">
+            <label class="small muted" for="track-scene">Show</label>
+            <select id="track-scene" style="width:auto"></select>
+          </div>
+          <div class="grid grid-2">
+            <div>
+              <div class="plot-label"><span>Trajectories (start ● → end ▲)</span></div>
+              <canvas class="plot" id="c-traj"></canvas>
+            </div>
+            <div>
+              <div class="plot-label"><span>Movement density heat map</span></div>
+              <canvas class="plot" id="c-density"></canvas>
+            </div>
+          </div>
+          <div class="table-wrap" style="margin-top:14px"><table class="data" id="track-table"></table></div>
+        </div>
+
+        <div data-tabpane="summary" class="hidden">
+          <p class="small muted">Scenes are ranked by length, motion, visual distinctiveness and detected objects. The highest-ranked scenes each contribute a clip centred on their most active moment, and the clips play in their original order.</p>
+          <div class="row" style="margin-bottom:12px">
+            <button class="btn primary" id="play-sum">▶ Play summary</button>
+            <button class="btn" id="export-sum">⬇ Export summary (.webm)</button>
+            <span class="small muted" id="sum-info"></span>
+          </div>
+          <canvas class="plot" id="c-sum"></canvas>
+          <div class="table-wrap" style="margin-top:12px"><table class="data" id="sum-table"></table></div>
+        </div>
+        <div class="row" style="margin-top:16px">
+          <button class="btn small" id="dl-json">⬇ Download results (JSON)</button>
+        </div>
+      </div>
+
+      <section>
+        <h2>Method</h2>
+        <details class="method" open><summary>Frame sampling</summary><div>
+          <p>The video is sampled by seeking to evenly spaced timestamps. Auto mode picks 4 fps for clips under 3 minutes, 2 fps under 10 minutes, 1 fps under 40 minutes and 0.5 fps beyond that, with at most 3,600 samples. A 30-minute video therefore becomes about 1,800 frames. Each frame is scaled to 160 px wide, giving a 16×4×4 HSV histogram, a grayscale image and a Laplacian sharpness value.</p></div></details>
+        <details class="method"><summary>Scene boundaries and key frames</summary><div>
+          <ul>
+            <li>Dissimilarity D = 0.75 · Bhattacharyya distance of HSV histograms + 0.25 · 2 · mean absolute pixel difference.</li>
+            <li><b>Cuts</b>: local maxima above an adaptive threshold max(0.28, μ + kσ), with μ and σ taken from ±8 neighbouring samples. The sensitivity slider sets k from 4 down to 2.</li>
+            <li><b>Gradual transitions</b> (fades, dissolves): twin-comparison. A run of moderately high D is accepted when its first and last frames differ by more than the cut threshold.</li>
+            <li><b>Key frame</b> = scene medoid (closest to the scene's mean histogram) with a sharpness bonus. Long scenes get extra key frames when content drifts by more than 0.3.</li>
+          </ul></div></details>
+        <details class="method"><summary>Motion map</summary><div>
+          <p>Absolute differences between consecutive samples (excluding pairs that span a cut) are accumulated per pixel into a motion energy image and normalised. Mean difference per sample gives the motion-intensity curve.</p></div></details>
+        <details class="method"><summary>Tracking</summary><div>
+          <ul>
+            <li><b>COCO-SSD</b> (TensorFlow.js, MobileNet v2 lite) detects people or all 80 COCO classes in every sampled frame. The model downloads once (~5 MB) and runs on your GPU through WebGL.</li>
+            <li><b>Moving blobs</b>: the background of each scene is the per-pixel temporal median. Foreground mask = |frame − background| &gt; 28, then two dilations and 8-connected components. Frames where more than 40% of the image moves are treated as camera motion and skipped.</li>
+            <li>A greedy tracker matches detections across samples using constant-velocity prediction, centre distance and IoU, and resets at every scene cut.</li>
+          </ul></div></details>
+        <details class="method"><summary>Summary</summary><div>
+          <p>Importance = 0.3 · log-duration + 0.3 · motion + 0.25 · distinctiveness (histogram distance from the whole video) + 0.15 · detections, each normalised to 0–1. Clips are taken from scenes in order of importance until the target length is reached. The summary can be played in place or recorded to WebM with MediaRecorder.</p></div></details>
+      </section>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">SVP Lab · Speech &amp; Video Processing project · <a href="https://github.com/Sushmita-Sen25/SVP_Project">Source on GitHub</a></footer>
+<script type="module" src="assets/js/video-page.js"></script>
+</body>
+</html>

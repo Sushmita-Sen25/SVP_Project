@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gita Verse Recognition · SVP Lab</title>
+  <meta name="description" content="HMM-based recognition of Bhagavad Gita shlokas from MFCC features, trained and decoded in the browser.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{var t=localStorage.getItem('svp-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">स</span>SVP Lab</a>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="pronunciation.html">Pronunciation</a>
+      <a href="verse.html" aria-current="page">Verse recognition</a>
+      <a href="video.html">Video analysis</a>
+    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode"></button>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="eyebrow">Module 1b · Speech processing</div>
+    <h1>HMM-Based Recognition of Bhagavad Gita Shlokas</h1>
+    <p class="lede">Play or recite a verse and the system tells you which one it is. Each of the 10 verses has its own left-to-right hidden Markov model over 39-dimensional MFCC features, and the input is scored against all of them with the forward algorithm.</p>
+  </div>
+
+  <div class="split">
+    <aside class="stack sticky-panel">
+      <section class="card">
+        <div class="source-title"><span>Input audio</span>
+          <div class="seg" id="src-seg">
+            <button data-mode="clip" aria-pressed="true">Test clip</button><button data-mode="record">Record</button><button data-mode="upload">Upload</button>
+          </div>
+        </div>
+        <div data-pane="clip">
+          <label class="field"><span>Verse</span><select id="clip-verse"></select></label>
+          <label class="field"><span>Reciter (not used in training)</span><select id="clip-voice"></select></label>
+        </div>
+        <div data-pane="record" class="hidden">
+          <p class="small muted">Recite one of the verses below. Start right after pressing record and stop when you finish.</p>
+          <button class="btn block" id="rec-btn">● Record recitation</button>
+        </div>
+        <div data-pane="upload" class="hidden">
+          <label class="field"><span>Audio file</span><input type="file" id="file-in" accept="audio/*"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="partial"> Partial recitation (the verse may stop early)</label>
+        <div class="row">
+          <button class="btn primary" id="go">Recognise verse</button>
+          <button class="btn" id="play" disabled>▶ Play</button>
+        </div>
+        <div class="status" id="in-info" style="margin-top:8px"></div>
+      </section>
+
+      <section class="card">
+        <h3>Models</h3>
+        <p class="small muted" id="model-info">Loading pretrained models…</p>
+        <button class="btn block" id="retrain">Retrain all 10 HMMs in your browser</button>
+        <div class="progress hidden" id="train-prog" style="margin-top:10px"><div></div></div>
+        <div class="status small" id="train-status"></div>
+      </section>
+    </aside>
+
+    <section class="stack">
+      <div class="card">
+        <div class="row-between" style="align-items:flex-start">
+          <div>
+            <div class="small muted">Recognised as</div>
+            <div class="result-big" id="pred">–</div>
+          </div>
+          <div id="truth" style="text-align:right"></div>
+        </div>
+        <div id="pred-verse" style="margin-top:14px"></div>
+        <div class="plot-label" style="margin-top:18px"><span>Log-likelihood per frame for every verse model</span><span>relative score</span></div>
+        <div class="rank" id="ranking"></div>
+      </div>
+
+      <div class="card">
+        <h3>Viterbi state alignment</h3>
+        <p class="card-sub">The best state path through the winning model. Each band is one HMM state, roughly one syllable. Long bands are slow or held sounds.</p>
+        <canvas class="plot" id="c-align"></canvas>
+        <div class="plot-label"><span>State index over time</span><span>seconds</span></div>
+        <canvas class="plot" id="c-states"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Training convergence</h3>
+        <p class="card-sub">Average log-likelihood per frame on the training data: 4 Viterbi (segmental k-means) iterations, then 6 Baum–Welch iterations.</p>
+        <canvas class="plot" id="c-train"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Evaluation</h3>
+        <div class="grid grid-4" id="eval-stats"></div>
+        <div class="grid grid-2" style="margin-top:16px">
+          <div>
+            <div class="plot-label"><span>Leave-one-speaker-out confusion matrix</span><span>rows = true verse</span></div>
+            <canvas class="plot" id="c-conf"></canvas>
+          </div>
+          <div>
+            <div class="plot-label"><span>Accuracy vs. white-noise SNR (held-out set)</span><span>%</span></div>
+            <canvas class="plot" id="c-noise"></canvas>
+            <div class="plot-label"><span>Partial recitations (first part of the verse only)</span></div>
+            <div class="table-wrap"><table class="data" id="partial-table"></table></div>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top:12px">The models are trained on clean speech, so accuracy drops quickly once noise is added. Training with noisy copies of the data, or spectral subtraction before feature extraction, are natural next steps.</p>
+      </div>
+
+      <div class="card">
+        <h3>Verse library</h3>
+        <p class="card-sub">The 10 verses the system knows. Click a verse to load its test clip.</p>
+        <div class="stack" id="library"></div>
+      </div>
+
+      <section>
+        <h2>Method</h2>
+        <details class="method" open><summary>Front end</summary><div>
+          <p>16 kHz mono → silence trimming → pre-emphasis → 25 ms Hamming frames every 10 ms → 26-band mel filterbank → 13 MFCCs (liftered) → Δ and ΔΔ → per-utterance cepstral mean and variance normalisation. One recitation of about 10 s becomes roughly 1,000 vectors of 39 dimensions.</p></div></details>
+        <details class="method"><summary>Model</summary><div>
+          <ul>
+            <li>One HMM per verse with N ≈ frames/20 states (34–46). Left-to-right topology: from each state you can stay, move to the next state, or skip one.</li>
+            <li>Emissions are single diagonal-covariance Gaussians, with a variance floor of 5% of the global variance.</li>
+            <li>Training: flat start (uniform segmentation) → 4 Viterbi re-estimation passes → 6 Baum–Welch (EM) passes, all in the log domain.</li>
+          </ul></div></details>
+        <details class="method"><summary>Recognition</summary><div>
+          <p>The forward algorithm computes log P(O | λ<sub>v</sub>) for each verse model and the highest score wins. The path must end in the final state, unless partial mode is on, in which case it may end in any state. The relative score is a softmax over the per-frame log-likelihoods. The Viterbi path of the winning model gives the alignment shown above.</p></div></details>
+        <details class="method"><summary>Data</summary><div>
+          <p>Recitations are synthesised with six neural TTS voices (Hindi, Marathi and Nepali). Training uses 4 voices × 3 tempo/pitch settings = 12 recitations per verse. The test clips use the two Nepali voices, which are never seen in training, and the four training voices at tempos not used in training. The full pipeline can be re-run with <code>scripts/generate_audio.py</code> and <code>scripts/train_gita_hmm.mjs</code>.</p></div></details>
+      </section>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">SVP Lab · Speech &amp; Video Processing project · <a href="https://github.com/Sushmita-Sen25/SVP_Project">Source on GitHub</a></footer>
+<script type="module" src="assets/js/verse-page.js"></script>
+</body>
+</html>
