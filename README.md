@@ -1,5 +1,7 @@
 # SVP Lab: Speech & Video Processing
 
+**Live site:** https://svp-project-nine.vercel.app
+
 A course project with three working systems, all running **entirely in the browser** (recordings and videos never leave the device):
 
 | Module | Title | What it does |
