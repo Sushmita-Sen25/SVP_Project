@@ -6,7 +6,7 @@ A course project with three working systems, all running **entirely in the brows
 
 | Module | Title | What it does |
 |---|---|---|
-| 1a | **Sanskrit Pronunciation Assessment Using MFCC and Spectral Features** | Compares a student's pronunciation of a word (e.g. कृष्ण, *kṛṣṇa* vs. *krishna / kishna / krisna*) with a reference. Outputs a similarity score and breaks it down into vowel, consonant, duration, spectral and per-MFCC differences, with error localisation and error-type identification. |
+| 1a | **Sanskrit Pronunciation Using MFCC and Spectral Features** | Compares a student's pronunciation of a word (e.g. कृष्ण, *kṛṣṇa* vs. *krishna / kishna / krisna*) with a reference. Outputs a similarity score and breaks it down into vowel, consonant, duration, spectral and per-MFCC differences, with error localisation and error-type identification. |
 | 1b | **HMM-Based Recognition of Bhagavad Gita Shlokas Using MFCC Features** | Recognises which of 10 verses was recited (e.g. *Verse 9.26*) using one left-to-right Gaussian HMM per verse, with Viterbi alignment and in-browser Baum–Welch retraining. |
 | 2 | **Long-Video Analysis and Summarisation** | For a video of any length (e.g. a 30-minute lecture): (a) important frames, (b) scene boundaries, (c) motion map, (d) tracked objects and human movement, (e) a short summary video. |
 
@@ -70,6 +70,6 @@ node scripts/calibrate_pronunciation.mjs
 
 ## Notes and limitations
 
-- The speech corpus is synthesised with neural TTS voices (Hindi, Marathi, Nepali), not recorded from native Vedic reciters. For real assessment, record a teacher as the reference. The page supports recording and uploading both sides.
+- The speech corpus is synthesised with neural TTS voices (Hindi, Marathi, Nepali), not recorded from native Vedic reciters. For real use, record a teacher as the reference. The page supports recording and uploading both sides.
 - The verse HMMs are trained on clean speech and degrade under noise. Multi-condition training or spectral subtraction are natural extensions.
 - The demo video is procedurally generated. COCO-SSD person tracking needs real footage; the demo uses moving-blob tracking.
