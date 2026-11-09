@@ -2,7 +2,7 @@
   "name": "svp-project",
   "version": "1.0.0",
   "private": true,
-  "description": "Speech & Video Processing lab: Sanskrit pronunciation assessment (MFCC + DTW), Bhagavad Gita verse recognition (MFCC + HMM) and long-video analysis, running in the browser.",
+  "description": "Speech & Video Processing lab: Sanskrit pronunciation comparison (MFCC + DTW), Bhagavad Gita verse recognition (MFCC + HMM) and long-video analysis, running in the browser.",
   "type": "module",
   "scripts": {
     "dev": "npx --yes http-server@14.1.1 -p 5174 -c-1",

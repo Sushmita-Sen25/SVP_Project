@@ -1,7 +1,7 @@
 """Generate the demo audio corpus with neural TTS (edge-tts).
 
 Creates
-  audio/words/<word>/<voice>__<form>.mp3            pronunciation-assessment samples
+  audio/words/<word>/<voice>__<form>.mp3            pronunciation samples
   audio/gita/train/<verse>/<voice>__<config>.mp3    HMM training recitations
   audio/gita/test/<verse>/<voice>.mp3               held-out recitations
 

@@ -1,4 +1,4 @@
-// Calibrates and evaluates the pronunciation assessment on the TTS corpus.
+// Calibrates and evaluates the pronunciation comparison on the TTS corpus.
 //  1. Pairwise DTW distance statistics (reference vs. student) used to set the
 //     logistic score mapping in assets/js/pronounce.js.
 //  2. Leave-one-speaker-out evaluation of multi-template error identification.

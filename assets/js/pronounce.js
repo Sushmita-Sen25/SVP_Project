@@ -1,4 +1,4 @@
-// Pronunciation assessment: compares a student utterance with a reference
+// Pronunciation analysis: compares a student utterance with a reference
 // utterance using MFCC + DTW, then breaks the difference down into vowel,
 // consonant, duration, spectral, pitch and per-coefficient components.
 // Pure computation (no DOM) so it can be calibrated from Node.
